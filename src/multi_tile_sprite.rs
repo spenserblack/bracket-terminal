@@ -1,4 +1,4 @@
-use crate::prelude::{DrawBatch, BTerm, Tile, Console, string_to_cp437};
+use crate::prelude::{DrawBatch, BTerm, Tile, Console, string_to_cp437, XpFile};
 use std::convert::TryInto;
 use bracket_color::prelude::{RGB, ColorPair};
 use bracket_geometry::prelude::Point;
@@ -68,8 +68,7 @@ impl MultiTileSprite {
     }
 
     /// Import a sprite from an XP Rex Paint file.
-    /*
-    pub fn from_xp(rex: &rex::XpFile) -> Self {
+    pub fn from_xp(rex: &XpFile) -> Self {
         let dimensions = Point::new(rex.layers[0].width, rex.layers[0].height);
         let mut tiles: Vec<Tile> = vec![
             Tile {
@@ -98,7 +97,7 @@ impl MultiTileSprite {
             content: tiles,
             dimensions,
         }
-    }*/
+    }
 
     /// Directly renders a sprite to an BTerm context.
     pub fn render(&self, context: &mut BTerm, position: Point) {
