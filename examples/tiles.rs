@@ -193,17 +193,17 @@ fn main() {
     // This initialization is a bit more complicated than the previous examples.
     let context = BTermBuilder::new()
         // We specify the CONSOLE dimensions
-        .with_dimensions(WIDTH, HEIGHT)
+        .with_dimensions(WIDTH as u32, HEIGHT as u32)
         // We specify the size of the tiles
-        .with_tile_dimensions(16, 16)
+        .with_tile_dimensions(16u32, 16u32)
         // We give it a window title
         .with_title("Bracket Example - Tiles")
         // We register our embedded "example_tiles.png" as a font.
-        .with_font("example_tiles.png", 16, 16)
+        .with_font("example_tiles.png", 16u32, 16u32)
         // We want a base simple console for the terrain background
-        .with_simple_console(WIDTH, HEIGHT, "example_tiles.png")
+        .with_simple_console(WIDTH as u32, HEIGHT as u32, "example_tiles.png")
         // We also want a sparse console atop it to handle moving the character
-        .with_sparse_console(WIDTH, HEIGHT, "example_tiles.png")
+        .with_sparse_console(WIDTH as u32, HEIGHT as u32, "example_tiles.png")
         // And we call the builder function
         .build();
 

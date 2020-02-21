@@ -1,6 +1,5 @@
 use crate::prelude::{init_raw, BTerm, InitHints, SimpleConsole, SparseConsole, Font};
 use std::collections::HashMap;
-use std::convert::TryInto;
 
 /// Internal structure defining a font to be loaded.
 struct BuilderFont {
@@ -87,10 +86,10 @@ impl BTermBuilder {
     /// Provides an 8x8 terminal font simple console, with the specified dimensions as your starting point.
     pub fn simple<T>(width: T, height: T) -> Self
     where
-        T: TryInto<u32>,
+        T: Into<u32>,
     {
-        let w: u32 = width.try_into().ok().unwrap();
-        let h: u32 = height.try_into().ok().unwrap();
+        let w: u32 = width.into();
+        let h: u32 = height.into();
         let mut cb = BTermBuilder {
             width: w,
             height: h,
@@ -142,10 +141,10 @@ impl BTermBuilder {
     /// Provides a VGA-font simple terminal with the specified dimensions as your starting point.
     pub fn vga<T>(width: T, height: T) -> Self
     where
-        T: TryInto<u32>,
+        T: Into<u32>,
     {
-        let w: u32 = width.try_into().ok().unwrap();
-        let h: u32 = height.try_into().ok().unwrap();
+        let w: u32 = width.into();
+        let h: u32 = height.into();
         let mut cb = BTermBuilder {
             width: w,
             height: h,
@@ -172,20 +171,20 @@ impl BTermBuilder {
     /// Adds width/height dimensions to the BTerm builder.
     pub fn with_dimensions<T>(mut self, width: T, height: T) -> Self
     where
-        T: TryInto<u32>,
+        T: Into<u32>,
     {
-        self.width = width.try_into().ok().unwrap();
-        self.height = height.try_into().ok().unwrap();
+        self.width = width.into();
+        self.height = height.into();
         self
     }
 
     /// Overrides the default assumption for tile sizes. Needed for a raw initialization.
     pub fn with_tile_dimensions<T>(mut self, width: T, height: T) -> Self
     where
-        T: TryInto<u32>,
+        T: Into<u32>,
     {
-        self.tile_width = width.try_into().ok().unwrap();
-        self.tile_height = height.try_into().ok().unwrap();
+        self.tile_width = width.into();
+        self.tile_height = height.into();
         self
     }
 
@@ -205,13 +204,13 @@ impl BTermBuilder {
     /// Adds a font registration to the BTerm builder.
     pub fn with_font<S: ToString, T>(mut self, font_path: S, width: T, height: T) -> Self
     where
-        T: TryInto<u32>,
+        T: Into<u32>,
     {
         self.fonts.push(BuilderFont {
             path: font_path.to_string(),
             dimensions: (
-                width.try_into().ok().unwrap(),
-                height.try_into().ok().unwrap(),
+                width.into(),
+                height.into(),
             ),
         });
         self
@@ -220,11 +219,11 @@ impl BTermBuilder {
     /// Adds a simple console layer to the BTerm builder.
     pub fn with_simple_console<S: ToString, T>(mut self, width: T, height: T, font: S) -> Self
     where
-        T: TryInto<u32>,
+        T: Into<u32>,
     {
         self.consoles.push(ConsoleType::SimpleConsole {
-            width: width.try_into().ok().unwrap(),
-            height: height.try_into().ok().unwrap(),
+            width: width.into(),
+            height: height.into(),
             font: font.to_string(),
         });
         self
@@ -243,11 +242,11 @@ impl BTermBuilder {
     /// Adds a sparse console layer to the BTerm builder.
     pub fn with_sparse_console<S: ToString, T>(mut self, width: T, height: T, font: S) -> Self
     where
-        T: TryInto<u32>,
+        T: Into<u32>,
     {
         self.consoles.push(ConsoleType::SparseConsole {
-            width: width.try_into().ok().unwrap(),
-            height: height.try_into().ok().unwrap(),
+            width: width.into(),
+            height: height.into(),
             font: font.to_string(),
         });
         self
@@ -256,11 +255,11 @@ impl BTermBuilder {
     /// Adds a sparse console with no bg rendering layer to the BTerm builder.
     pub fn with_sparse_console_no_bg<S: ToString, T>(mut self, width: T, height: T, font: S) -> Self
     where
-        T: TryInto<u32>,
+        T: Into<u32>,
     {
         self.consoles.push(ConsoleType::SparseConsoleNoBg {
-            width: width.try_into().ok().unwrap(),
-            height: height.try_into().ok().unwrap(),
+            width: width.into(),
+            height: height.into(),
             font: font.to_string(),
         });
         self

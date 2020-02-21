@@ -75,8 +75,8 @@ fn main() {
     bracket_terminal::link_resource!(NYAN_CAT, "../resources/nyan.xp");
 
     let context = BTermBuilder::simple80x50()
-        .with_font("vga8x16.png", 8, 16)
-        .with_sparse_console(80, 25, "vga8x16.png")
+        .with_font("vga8x16.png", 8u32, 16u32)
+        .with_sparse_console(80u32, 25u32, "vga8x16.png")
         .with_title("Bracket Terminal Example - Text Sprites")
         .build();
 

@@ -1,5 +1,4 @@
 use crate::prelude::{DrawBatch, BTerm, Tile, Console, string_to_cp437, XpFile};
-use std::convert::TryInto;
 use bracket_color::prelude::{RGB, ColorPair};
 use bracket_geometry::prelude::Point;
 
@@ -13,10 +12,10 @@ impl MultiTileSprite {
     /// Generates a sprite from an input string, divided into width x height sizes.
     pub fn from_string<S: ToString, T>(content: S, width: T, height: T) -> Self
     where
-        T: TryInto<i32>,
+        T: Into<i32>,
     {
-        let w: i32 = width.try_into().ok().unwrap();
-        let h: i32 = height.try_into().ok().unwrap();
+        let w: i32 = width.into();
+        let h: i32 = height.into();
         let content_s = content.to_string();
 
         let bytes = string_to_cp437(content_s);
@@ -44,10 +43,10 @@ impl MultiTileSprite {
         bg: &[RGB],
     ) -> Self
     where
-        T: TryInto<i32>,
+        T: Into<i32>,
     {
-        let w: i32 = width.try_into().ok().unwrap();
-        let h: i32 = height.try_into().ok().unwrap();
+        let w: i32 = width.into();
+        let h: i32 = height.into();
         let content_s = content.to_string();
 
         let bytes = string_to_cp437(content_s);
