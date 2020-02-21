@@ -15,7 +15,7 @@ license = "MIT"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-bracket-color = { git = "https://github.com/thebracket/bracket-color" }
+bracket-color = { version = "0.1.0", features = [ "rex" ] }
 bracket-geometry = { git = "https://github.com/thebracket/bracket-geometry" }
 flate2 = "1.0.13"
 lazy_static = "1.4.0"
