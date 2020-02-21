@@ -1,9 +1,3 @@
-#![warn(clippy::pedantic)]
-// This is based on example 3, but adds in highlighting visible tiles.
-//
-// Comments that duplicate previous examples have been removed for brevity.
-//////////////////////////////////////////////////////////////
-
 bracket_terminal::add_wasm_support!();
 use bracket_terminal::prelude::*;
 use bracket_random::prelude::*;
@@ -141,7 +135,6 @@ impl GameState for State {
         if self.mode == Mode::Waiting {
             // Render a mouse cursor
             let mouse_pos = ctx.mouse_pos();
-            //println!("Received mouse pos: {},{}", mouse_pos.0, mouse_pos.1);
             let mouse_idx = self.point2d_to_index(Point::new(mouse_pos.0, mouse_pos.1));
             draw_batch.print_color(
                 Point::from_tuple(mouse_pos),

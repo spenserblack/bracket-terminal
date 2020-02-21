@@ -1,8 +1,3 @@
-// This is based on example 3, but adds in highlighting visible tiles.
-//
-// Comments that duplicate previous examples have been removed for brevity.
-//////////////////////////////////////////////////////////////
-
 bracket_terminal::add_wasm_support!();
 use bracket_terminal::prelude::*;
 use bracket_random::prelude::*;
@@ -17,7 +12,6 @@ enum TileType {
 const WIDTH: i32 = 40;
 const HEIGHT: i32 = 25;
 
-// Just like example 3, but we're adding an additional vector: visible
 struct State {
     map: Vec<TileType>,
     player_position: usize,
@@ -34,7 +28,6 @@ pub fn idx_xy(idx: usize) -> (i32, i32) {
 
 impl State {
     pub fn new() -> State {
-        // Same as example 3, but we've added the visible tiles
         let mut state = State {
             map: vec![TileType::Floor; (WIDTH * HEIGHT) as usize],
             player_position: xy_idx(WIDTH / 2, HEIGHT / 2),
@@ -180,11 +173,7 @@ impl GameState for State {
     }
 }
 
-// To work with RLTK's algorithm features, we need to implement some the Algorithm2D trait for our map.
-
-// First, default implementations of some we aren't using yet (more on these later!)
 impl BaseMap for State {
-    // We'll use this one - if its a wall, we can't see through it
     fn is_opaque(&self, idx: usize) -> bool {
         self.map[idx as usize] == TileType::Wall
     }
@@ -201,16 +190,14 @@ bracket_terminal::embedded_resource!(TILE_FONT, "../resources/example_tiles.png"
 fn main() {
     bracket_terminal::link_resource!(TILE_FONT, "resources/example_tiles.png");
 
-    // This initialization is a bit more complicated than the previous examples. It uses
-    // the "raw" initialization to build a tile-based setup from scatch.
-    // new() starts with basically no useful settings
+    // This initialization is a bit more complicated than the previous examples.
     let context = BTermBuilder::new()
         // We specify the CONSOLE dimensions
         .with_dimensions(WIDTH, HEIGHT)
         // We specify the size of the tiles
         .with_tile_dimensions(16, 16)
         // We give it a window title
-        .with_title("RLTK Example 07 - Tiles")
+        .with_title("Bracket Example - Tiles")
         // We register our embedded "example_tiles.png" as a font.
         .with_font("example_tiles.png", 16, 16)
         // We want a base simple console for the terrain background

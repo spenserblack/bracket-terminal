@@ -1,9 +1,3 @@
-// This the first roguelike-ish example - a walking @. We build a very simple map,
-// and you can use the cursor keys to move around a world.
-//
-// Comments that duplicate previous examples have been removed for brevity.
-//////////////////////////////////////////////////////////////
-
 bracket_terminal::add_wasm_support!();
 use bracket_terminal::prelude::*;
 use bracket_noise::prelude::*;

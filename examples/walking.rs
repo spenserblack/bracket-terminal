@@ -1,9 +1,3 @@
-// This the first roguelike-ish example - a walking @. We build a very simple map,
-// and you can use the cursor keys to move around a world.
-//
-// Comments that duplicate previous examples have been removed for brevity.
-//////////////////////////////////////////////////////////////
-
 bracket_terminal::add_wasm_support!();
 use bracket_terminal::prelude::*;
 use bracket_random::prelude::*;
@@ -95,7 +89,7 @@ impl GameState for State {
             Some(key) => {
                 // A key is pressed or held
                 match key {
-                    // We're matching a key code from GLFW (the GL library underlying RLTK),
+                    // We're matching a key code from GLFW (the GL library underlying BTerm),
                     // and applying movement via the move_player function.
 
                     // Numpad

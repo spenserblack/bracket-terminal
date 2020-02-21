@@ -1,25 +1,13 @@
-// We're utilizing functionality from RLTK, so we need to tell it to use the crate.
 bracket_terminal::add_wasm_support!();
 
-// We're using Rltk (the main context) and GameState (a trait defining what our callback
-// looks like), so we need to use that, too.`
 use bracket_terminal::prelude::*;
 
-// This is the structure that will store our game state, typically a state machine pointing to
-// other structures. This demo is realy simple, so we'll just put the minimum to make it work
-// in here.
 struct State {
     y: i32,
     going_down: bool,
 }
 
-// We have to implement the "trait" GameState for our state object. This gives it a callback
-// point for the main loop.
 impl GameState for State {
-    // This is called every time the screen refreshes (a "tick") by RLTK's main loop. Since GUIs
-    // require that you process events every turn - rather than just sequentially like a good old text
-    // console, you have to run your game as something of a state machine. This will be fleshed out in
-    // later tutorials. For now, it just shows you the frame rate and says "Hello World".
     fn tick(&mut self, ctx: &mut BTerm) {
         let mut draw_batch = DrawBatch::new();
         let col1 = RGB::named(CYAN);
@@ -75,27 +63,17 @@ impl GameState for State {
     }
 }
 
-// Every program needs a main() function!
 fn main() {
-    // We're using the RLTK "builder" system to define what we want. We start with a simple
-    // 80x50 background layer.
     let context = BTermBuilder::simple80x50()
-        // Then we register the 8x16 VGA font. This is embedded automatically, so you can just use it.
         .with_font("vga8x16.png", 8, 16)
-        // Next we want a "sparse" (no background) console, of half the height since its an 8x16 font.
         .with_sparse_console(80, 25, "vga8x16.png")
-        // And a window title
         .with_title("Bracket Terminal - Sparse Consoles")
-        // And call the build function to actually obtain the context.
         .build();
 
-    // Now we create an empty state object.
     let gs = State {
         y: 1,
         going_down: true,
     };
 
-    // Call into RLTK to run the main loop. This handles rendering, and calls back into State's tick
-    // function every cycle.
     main_loop(context, gs);
 }
