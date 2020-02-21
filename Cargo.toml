@@ -39,6 +39,6 @@ amethyst_engine_vulkan = [ "amethyst/vulkan", "image" ]
 amethyst_engine_metal = [ "amethyst/metal", "image" ]
 
 [dev-dependencies]
-bracket-random = { git = "https://github.com/thebracket/bracket-random" }
+bracket-random = "0.1.0"
 bracket-pathfinding = { git = "https://github.com/thebracket/bracket-pathfinding" }
 bracket-noise = { git = "https://github.com/thebracket/bracket-noise" }
