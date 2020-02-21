@@ -16,7 +16,7 @@ license = "MIT"
 
 [dependencies]
 bracket-color = { version = "0.1.0", features = [ "rex" ] }
-bracket-geometry = { git = "https://github.com/thebracket/bracket-geometry" }
+bracket-geometry = "0.1.0"
 flate2 = "1.0.13"
 lazy_static = "1.4.0"
 object-pool = "0.4"

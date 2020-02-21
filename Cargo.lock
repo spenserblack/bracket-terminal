@@ -558,9 +558,9 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 [[package]]
 name = "bracket-algorithm-traits"
 version = "0.1.0"
-source = "git+https://github.com/thebracket/bracket-algorithm-traits#bdfa7ac01b112f49f83455b23d730eee20a093d0"
+source = "git+https://github.com/thebracket/bracket-algorithm-traits#2b61a15479e70a6dbf05a63aeebce0f7d631edc4"
 dependencies = [
- "bracket-geometry 0.1.0 (git+https://github.com/thebracket/bracket-geometry)",
+ "bracket-geometry 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -574,7 +574,7 @@ dependencies = [
 [[package]]
 name = "bracket-geometry"
 version = "0.1.0"
-source = "git+https://github.com/thebracket/bracket-geometry#ef8156e313f7b68aacb5b50508d95922005f8b87"
+source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "ultraviolet 0.4.5 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -590,10 +590,10 @@ dependencies = [
 [[package]]
 name = "bracket-pathfinding"
 version = "0.1.0"
-source = "git+https://github.com/thebracket/bracket-pathfinding#02977a5fee545194892e49580eda247de640de58"
+source = "git+https://github.com/thebracket/bracket-pathfinding#30c203affcaf8a7074132ce61723b11b4fd02789"
 dependencies = [
  "bracket-algorithm-traits 0.1.0 (git+https://github.com/thebracket/bracket-algorithm-traits)",
- "bracket-geometry 0.1.0 (git+https://github.com/thebracket/bracket-geometry)",
+ "bracket-geometry 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -613,7 +613,7 @@ version = "0.1.0"
 dependencies = [
  "amethyst 0.13.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "bracket-color 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "bracket-geometry 0.1.0 (git+https://github.com/thebracket/bracket-geometry)",
+ "bracket-geometry 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "bracket-noise 0.1.0 (git+https://github.com/thebracket/bracket-noise)",
  "bracket-pathfinding 0.1.0 (git+https://github.com/thebracket/bracket-pathfinding)",
  "bracket-random 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -4171,7 +4171,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum block 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)" = "0d8c1fef690941d3e7788d328517591fecc684c084084702d6ff1641e993699a"
 "checksum bracket-algorithm-traits 0.1.0 (git+https://github.com/thebracket/bracket-algorithm-traits)" = "<none>"
 "checksum bracket-color 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "9f74c3d73aa082c091ac40e75ce8ba28499c67092cbcd5b6a5f681761288efa2"
-"checksum bracket-geometry 0.1.0 (git+https://github.com/thebracket/bracket-geometry)" = "<none>"
+"checksum bracket-geometry 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "e3decb4e2bc02eda78d1271f38d1aa345686a3058819ba33e7220e73b411090a"
 "checksum bracket-noise 0.1.0 (git+https://github.com/thebracket/bracket-noise)" = "<none>"
 "checksum bracket-pathfinding 0.1.0 (git+https://github.com/thebracket/bracket-pathfinding)" = "<none>"
 "checksum bracket-random 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "41df43fa20f2e26f56e31121a168e87fb9e0436d18e2cdb0f0b8b47d5720b5e0"
