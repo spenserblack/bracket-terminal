@@ -1,13 +1,9 @@
-// This is the canonical "Hello World" example for RLTK.
-// It is crammed into one file, and kept as short as possible
-//////////////////////////////////////////////////////////////
+// We're utilizing functionality from RLTK, so we need to tell it to use the crate.
+bracket_terminal::add_wasm_support!();
 
 // We're using Rltk (the main context) and GameState (a trait defining what our callback
 // looks like), so we need to use that, too.`
 use bracket_terminal::prelude::*;
-
-// We're utilizing functionality from RLTK, so we need to tell it to use the crate.
-bracket_terminal::add_wasm_support!();
 
 // This is the structure that will store our game state, typically a state machine pointing to
 // other structures. This demo is realy simple, so we'll just put the minimum to make it work
@@ -25,20 +21,20 @@ impl GameState for State {
     // console, you have to run your game as something of a state machine. This will be fleshed out in
     // later tutorials. For now, it just shows you the frame rate and says "Hello World".
     fn tick(&mut self, ctx: &mut BTerm) {
+        let mut draw_batch = DrawBatch::new();
         let col1 = RGB::named(CYAN);
         let col2 = RGB::named(YELLOW);
         let percent: f32 = self.y as f32 / 50.0;
         let fg = col1.lerp(col2, percent);
 
-        ctx.cls();
-        // Notice that unicode conversion is active, so we can cut/paste characters from
-        // a CP437 reference such as http://dwarffortresswiki.org/index.php/Character_table
-        ctx.print_color(
-            1,
-            self.y,
-            fg,
-            RGB::named(BLACK),
-            "♫ ♪ Hello Bracket World ☺",
+        // The first console created (8x8) is always console 0. This makes it the recipient
+        // of draw calls sent to ctx. You can also do ctx.consoles[0] - but that's more typing.
+        draw_batch.target(0);
+        draw_batch.cls();
+        draw_batch.print_color(
+            Point::new(1, self.y),
+            "Hello Bracket World",
+            ColorPair::new(fg, RGB::named(BLACK)),
         );
 
         // Lets make the hello bounce up and down
@@ -55,48 +51,51 @@ impl GameState for State {
         }
 
         // We'll also show the frame rate, since we generally care about keeping that high.
-        ctx.draw_box(
-            39,
-            0,
-            20,
-            3,
-            RGB::named(WHITE),
-            RGB::named(BLACK),
+        // We want to show this in VGA 8x16 font, so we'll set to console 1 - the one we added.
+        // Again, this could be ctx.consoles[1] - but the short-hand is easier.
+        draw_batch.target(1);
+        draw_batch.cls();
+        draw_batch.draw_double_box(
+            Rect::with_size(39, 0, 20, 3),
+            ColorPair::new(RGB::named(WHITE), RGB::named(BLACK)),
         );
-        ctx.print_color(
-            40,
-            1,
-            RGB::named(YELLOW),
-            RGB::named(BLACK),
+        draw_batch.print_color(
+            Point::new(40, 1),
             &format!("FPS: {}", ctx.fps),
+            ColorPair::new(RGB::named(YELLOW), RGB::named(BLACK)),
         );
-        ctx.print_color(
-            40,
-            2,
-            RGB::named(CYAN),
-            RGB::named(BLACK),
+        draw_batch.print_color(
+            Point::new(40, 2),
             &format!("Frame Time: {} ms", ctx.frame_time_ms),
+            ColorPair::new(RGB::named(CYAN), RGB::named(BLACK)),
         );
+        draw_batch.submit(0);
+
+        render_draw_buffer(ctx);
     }
 }
 
 // Every program needs a main() function!
 fn main() {
-    // RLTK's ConsoleBuilder interface offers a number of helpers to get you up and running quickly.
-    // Here, we are using the `simple80x50()` helper, which builds an 80-wide by 50-tall console,
-    // with the baked-in 8x8 terminal font.
+    // We're using the RLTK "builder" system to define what we want. We start with a simple
+    // 80x50 background layer.
     let context = BTermBuilder::simple80x50()
-        .with_title("Hello Bracket World")
-        .with_fps_cap(30.0)
+        // Then we register the 8x16 VGA font. This is embedded automatically, so you can just use it.
+        .with_font("vga8x16.png", 8, 16)
+        // Next we want a "sparse" (no background) console, of half the height since its an 8x16 font.
+        .with_sparse_console(80, 25, "vga8x16.png")
+        // And a window title
+        .with_title("Bracket Terminal - Sparse Consoles")
+        // And call the build function to actually obtain the context.
         .build();
 
     // Now we create an empty state object.
-    let gs: State = State {
+    let gs = State {
         y: 1,
         going_down: true,
     };
 
     // Call into RLTK to run the main loop. This handles rendering, and calls back into State's tick
-    // function every cycle. The box is needed to work around lifetime handling.
+    // function every cycle.
     main_loop(context, gs);
 }

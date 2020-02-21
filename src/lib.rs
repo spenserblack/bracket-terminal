@@ -32,6 +32,8 @@ pub mod prelude {
     pub use crate::gui_helpers::*;
     pub use crate::embedding;
     pub use crate::console;
+    pub use bracket_geometry::prelude::*;
+    pub use bracket_color::prelude::*;
 
     #[cfg(all(feature = "opengl", not(target_arch = "wasm32")))]
     pub use glutin::event::VirtualKeyCode;
